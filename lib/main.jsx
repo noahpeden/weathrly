@@ -1,69 +1,63 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const $ = require('jQuery');
+import React from 'react'
+import ReactDOM from 'react-dom'
+var $ = require('jQuery')
 
-class Main extends React.Component {
-  constructor(props) {
-    super(props)
+class Main extends React.Component{
+  constructor(){
+    super()
     this.state = {
-      value: "",
-      dataArray: null,
-    };
-
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+      location: '',
+      weather: null ,
+    }
   }
-
-  weatherData(){
-    $.get('http://weatherly-api.herokuapp.com/api/weather/' + this.state.value)
-    .then((data) => {
-      console.log(data);
-      this.setState({ dataArray: data})
-    });
-  }
-
-  arrayMap(dataArray) {
-    this.state.dataArray.map((day) => {
-      console.log(day);
+  locationAccepted(e){
+    $.get(this.props.source + this.state.location , (results)=> {
+      this.setState({ weather:results}, localStorage.setItem('location', this.state.location))
     })
-  }
+    }
 
-  handleChange(event){
-    this.setState({value: event.target.value})
-  }
-
-  handleSubmit(){
-    this.weatherData();
-    this.arrayMap(this.state.dataArray);
-    // alert("A city was submitted: " + this.state.value);
-  }
-
-  render() {
+  render(){
     return (
       <div>
-        <h1>Welcome! Please Submit a Location</h1>
-        <input
-          type="text"
-          className="CitySelector"
-          // value={this.state.value}
-          onChange={this.handleChange} />
-        <button
-          type="submit"
-          className="CitySelector-submit"
-          value="Submit"
-          onClick={this.handleSubmit}>
-          Submit
-        </button>
-        <section>Your weather in {this.state.value}
-          <article>
-            {/* {this.state.dataArray} */}
-          </article>
-        </section>
-      </div>
-    );
+    <input placeholder='location'
+           value = {this.state.location}
+            onChange={(event) => { this.setState({location: event.target.value})}}/>
+    <input type='submit'
+            onClick= { (e) => {this.locationAccepted(e)}}
+          />
+          <WeatherCards weather={ this.state.weather }/>
+        </div>
+    )
   }
 }
 
+const WeatherCards = (props) => {
+  let { weather } = props
 
-ReactDOM.render(<Main />, document.getElementById('application'))
+  if(!weather) {
+    return (
+      <div>please enter a location!
+      </div>
+    )
+  }
+  return (
+    <div className='Weather-Card'>
+      { weather.map((card) => <div key={card.date}>
+        <Weather {...card} />
+      </div> )}
+    </div>
+  )
+}
+
+const Weather = (props) => {
+  let {location, date, temp} = props
+  return (
+    <div>
+      <article>
+        {location}{date}{temp.high}
+      </article>
+    </div>
+  )
+}
+
+ReactDOM.render(<Main source='http://weatherly-api.herokuapp.com/api/weather/'/>, document.getElementById('application'))
