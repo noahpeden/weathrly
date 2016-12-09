@@ -10,21 +10,16 @@ class Main extends React.Component{
       weather: null ,
     }
   }
-  locationAccepted(e){
-    console.log(e);
-    $.get(this.props.source + this.state.location , (results)=> {
-      this.setState({ weather:results}, localStorage.setItem('location', this.state.location))
-    })
+  componentDidMount() {
+      this.setState({location: localStorage.getItem('location' || '')}, () => this.locationAccepted());
     }
 
-  lsRetrieval() {
-    if(localStorage.length === 1) {
-      let lsLocation = localStorage.getItem('location');
-      this.locationAccepted(e);
-      console.log(lsLocation);
-      }
-    return null
-  }
+
+  locationAccepted(e){
+    $.get(this.props.source + this.state.location , (results)=> {
+      this.setState({ weather:results.slice(0, 7)}, localStorage.setItem('location', this.state.location))
+    })
+    }
 
   render(){
     return (
