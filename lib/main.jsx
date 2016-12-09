@@ -11,10 +11,20 @@ class Main extends React.Component{
     }
   }
   locationAccepted(e){
+    console.log(e);
     $.get(this.props.source + this.state.location , (results)=> {
       this.setState({ weather:results}, localStorage.setItem('location', this.state.location))
     })
     }
+
+  lsRetrieval() {
+    if(localStorage.length === 1) {
+      let lsLocation = localStorage.getItem('location');
+      this.locationAccepted(e);
+      console.log(lsLocation);
+      }
+    return null
+  }
 
   render(){
     return (
@@ -36,7 +46,7 @@ const WeatherCards = (props) => {
 
   if(!weather) {
     return (
-      <div>please enter a location!
+      <div>Please enter a location!
       </div>
     )
   }
@@ -50,11 +60,11 @@ const WeatherCards = (props) => {
 }
 
 const Weather = (props) => {
-  let {location, date, temp} = props
+  let {location, date, temp, weatherType} = props
   return (
     <div>
       <article>
-        {location}{date}{temp.high}
+        Location: {location} Date: {date} Temperature: {temp.high} Likelihood of Weather: {weatherType.scale}
       </article>
     </div>
   )
