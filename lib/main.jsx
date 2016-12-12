@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jQuery'
+// import WeatherCards from 'WeatherCards.jsx'
 // var $ = require('jQuery')
 
 class Main extends React.Component{
@@ -13,10 +14,10 @@ class Main extends React.Component{
   }
 
   locationAccepted(e){
-    $.get(this.props.source + this.state.location , (results)=> {
+    $.get(this.props.source + (this.state.location).toLowerCase(), (results)=> {
       this.setState({ weather:results.slice(0, 7)}, localStorage.setItem('location', this.state.location))
     })
-    }
+  }
 
   enableSubmitButton() {
     return this.state.location !== '' ? false : true
@@ -40,21 +41,19 @@ class Main extends React.Component{
     )
   }
 
-
   componentDidMount() {
-      this.setState({location: localStorage.getItem('location' || '')}, () =>
-       this.locationAccepted()
-     );
-      // this.setState({location: '', weather: null});
-    }
+    this.setState({location: localStorage.getItem('location' || '')}, () =>
+     this.locationAccepted()
+   );
+  }
 }
 
 const WeatherCards = (props) => {
   let currentLocation = props.location
   let { weather } = props
-  if(!weather) {
+  if(!weather || !weather.length) {
     return (
-      <div>Please enter a location!
+      <div>Please enter a supported location!
       </div>
     )
   }
@@ -76,9 +75,23 @@ const Weather = (props) => {
         Date: {date} <br/>
         Temperature: {temp.high} <br/>
         Likelihood of Weather: {weatherType.scale}
+        <button onClick={ (e) => {
+          getHourlyWeather(e, props)}
+        }>Hourly</button>
       </article>
     </div>
   )
+}
+
+function getHourlyWeather(e, props) {
+  // console.log(e.target);
+  // console.log(props.hourly.timeBreakDown);
+
+  { props.hourly.timeBreakDown.map((hour) => <div>
+    <
+  </div> )}
+
+
 }
 
 ReactDOM.render(<Main source='http://weatherly-api.herokuapp.com/api/weather/'/>, document.getElementById('application'))
