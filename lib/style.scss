@@ -1,27 +1,48 @@
-.snow {
-  background-color: grey;
-}
-
-.windy {
-  background-color: green;
+body {
+  text-align: center;
+  background-image: url('/images/sunny.png')
 }
 
 .sunny {
   background-color: lightblue;
+  background-image: url('/images/sunny.png');
+}
+.snow {
+  background-color: white;
+  background-image: url('/images/snowy.png');
+}
+
+.windy {
+  background-color: green;
+  background-image: url('/images/windy.png');
 }
 
 .thunder {
   background-color: darkgrey;
+  background-image: url('/images/thunder.png')
 }
 
 .rain {
   background-color: yellow;
+  background-image: url('/images/rainy.png')
 }
 
 .cloudy {
   background-color: pink;
+  background-image: url('/images/cloudy.png')
 }
 
 .current-location {
   text-transform: capitalize;
+}
+
+@mixin img($size, $margin){
+  height: $size;
+  width: $size;
+  margin: $margin;
+}
+
+.sunny, .snow, .windy, .thunder, .rain, .cloudy {
+  @include img(160px, 10px)
+  float: left;
 }
