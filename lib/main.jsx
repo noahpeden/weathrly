@@ -19,11 +19,7 @@ class Main extends React.Component{
     }
 
   enableSubmitButton() {
-    if(this.state.location !== '') {
-      return false
-    } else {
-      return true
-    }
+    return this.state.location !== '' ? false : true
   }
 
   render(){
