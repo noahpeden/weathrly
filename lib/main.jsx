@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-var $ = require('jQuery')
+import $ from 'jQuery'
+// var $ = require('jQuery')
 
 class Main extends React.Component{
   constructor(){
@@ -11,7 +12,9 @@ class Main extends React.Component{
     }
   }
   componentDidMount() {
-      this.setState({location: localStorage.getItem('location' || '')}, () => this.locationAccepted());
+      this.setState({location: localStorage.getItem('location' || '')}, () =>
+       this.locationAccepted());
+      this.setState({location: ''});
     }
 
 
