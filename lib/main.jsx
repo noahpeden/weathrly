@@ -16,7 +16,7 @@ class Main extends React.Component{
     $.get(this.props.source + this.state.location , (results)=> {
       this.setState({ weather:results.slice(0, 7)}, localStorage.setItem('location', this.state.location))
     })
-    }
+  }
 
   enableSubmitButton() {
     return this.state.location !== '' ? false : true
@@ -40,21 +40,19 @@ class Main extends React.Component{
     )
   }
 
-
   componentDidMount() {
-      this.setState({location: localStorage.getItem('location' || '')}, () =>
-       this.locationAccepted()
-     );
-      // this.setState({location: '', weather: null});
-    }
+    this.setState({location: localStorage.getItem('location' || '')}, () =>
+     this.locationAccepted()
+   );
+  }
 }
 
 const WeatherCards = (props) => {
   let currentLocation = props.location
   let { weather } = props
-  if(!weather) {
+  if(!weather || !weather.length) {
     return (
-      <div>Please enter a location!
+      <div>Please enter a supported location!
       </div>
     )
   }
