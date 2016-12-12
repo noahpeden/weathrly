@@ -8,7 +8,7 @@ class Main extends React.Component{
     super()
     this.state = {
       location: '',
-      weather: null ,
+      weather: null,
     }
   }
 
@@ -18,19 +18,32 @@ class Main extends React.Component{
     })
     }
 
+  enableSubmitButton() {
+    if(this.state.location !== '') {
+      return false
+    } else {
+      return true
+    }
+  }
+
   render(){
     return (
       <div>
     <input placeholder='location'
            value = {this.state.location}
-           onChange={(event) => { this.setState({location: event.target.value})}}/>
+           onChange={(event) =>
+             {this.setState({location: event.target.value})}
+           }
+           />
     <input type='submit'
             onClick= { (e) => {this.locationAccepted(e)}}
+            disabled = {this.enableSubmitButton()}
           />
         <WeatherCards weather={this.state.weather} location={this.state.location} />
         </div>
     )
   }
+
 
   componentDidMount() {
       this.setState({location: localStorage.getItem('location' || '')}, () =>
