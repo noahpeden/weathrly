@@ -11,13 +11,6 @@ class Main extends React.Component{
       weather: null ,
     }
   }
-  componentDidMount() {
-      this.setState({location: localStorage.getItem('location' || '')}, () =>
-       this.locationAccepted()
-     );
-      this.setState({location: ''});
-    }
-
 
   locationAccepted(e){
     $.get(this.props.source + this.state.location , (results)=> {
@@ -38,6 +31,13 @@ class Main extends React.Component{
         </div>
     )
   }
+
+  componentDidMount() {
+      this.setState({location: localStorage.getItem('location' || '')}, () =>
+       this.locationAccepted()
+     );
+      // this.setState({location: '', weather: null});
+    }
 }
 
 const WeatherCards = (props) => {
