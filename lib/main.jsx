@@ -27,7 +27,7 @@ class Main extends React.Component{
     <input type='submit'
             onClick= { (e) => {this.locationAccepted(e)}}
           />
-          <WeatherCards weather={ this.state.weather }/>
+        <WeatherCards weather={this.state.weather} location={this.state.location} />
         </div>
     )
   }
@@ -41,8 +41,8 @@ class Main extends React.Component{
 }
 
 const WeatherCards = (props) => {
-  let { weather, location } = props
-
+  let currentLocation = props.location
+  let { weather } = props
   if(!weather) {
     return (
       <div>Please enter a location!
@@ -51,6 +51,7 @@ const WeatherCards = (props) => {
   }
   return (
     <div className='Weather-Card'>
+      <h2 className="current-location">Location: {currentLocation}</h2>
       { weather.map((card) => <div key={card.date}>
         <Weather {...card} />
       </div> )}
@@ -60,11 +61,9 @@ const WeatherCards = (props) => {
 
 const Weather = (props) => {
   let {location, date, temp, weatherType} = props
-  console.log(weatherType.type);
   return (
     <div>
       <article className={weatherType.type}>
-        <header>{location}</header>
         Date: {date} <br/>
         Temperature: {temp.high} <br/>
         Likelihood of Weather: {weatherType.scale}
