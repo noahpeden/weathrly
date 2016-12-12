@@ -13,7 +13,8 @@ class Main extends React.Component{
   }
   componentDidMount() {
       this.setState({location: localStorage.getItem('location' || '')}, () =>
-       this.locationAccepted());
+       this.locationAccepted()
+     );
       this.setState({location: ''});
     }
 
@@ -29,7 +30,7 @@ class Main extends React.Component{
       <div>
     <input placeholder='location'
            value = {this.state.location}
-            onChange={(event) => { this.setState({location: event.target.value})}}/>
+           onChange={(event) => { this.setState({location: event.target.value})}}/>
     <input type='submit'
             onClick= { (e) => {this.locationAccepted(e)}}
           />
@@ -40,7 +41,7 @@ class Main extends React.Component{
 }
 
 const WeatherCards = (props) => {
-  let { weather } = props
+  let { weather, location } = props
 
   if(!weather) {
     return (
@@ -59,10 +60,14 @@ const WeatherCards = (props) => {
 
 const Weather = (props) => {
   let {location, date, temp, weatherType} = props
+  console.log(weatherType.type);
   return (
     <div>
-      <article>
-        Location: {location} Date: {date} Temperature: {temp.high} Likelihood of Weather: {weatherType.scale}
+      <article className={weatherType.type}>
+        <header>{location}</header>
+        Date: {date} <br/>
+        Temperature: {temp.high} <br/>
+        Likelihood of Weather: {weatherType.scale}
       </article>
     </div>
   )
