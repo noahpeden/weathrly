@@ -1,19 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-var $ = require('jQuery')
+import $ from 'jQuery'
+// var $ = require('jQuery')
 
 class Main extends React.Component{
   constructor(){
     super()
     this.state = {
       location: '',
-      weather: null ,
+      weather: null,
     }
   }
-  componentDidMount() {
-      this.setState({location: localStorage.getItem('location' || '')}, () => this.locationAccepted());
-    }
-
 
   locationAccepted(e){
     $.get(this.props.source + this.state.location , (results)=> {
@@ -21,24 +18,40 @@ class Main extends React.Component{
     })
     }
 
+  enableSubmitButton() {
+    return this.state.location !== '' ? false : true
+  }
+
   render(){
     return (
       <div>
     <input placeholder='location'
            value = {this.state.location}
-            onChange={(event) => { this.setState({location: event.target.value})}}/>
+           onChange={(event) =>
+             {this.setState({location: event.target.value})}
+           }
+           />
     <input type='submit'
             onClick= { (e) => {this.locationAccepted(e)}}
+            disabled = {this.enableSubmitButton()}
           />
-          <WeatherCards weather={ this.state.weather }/>
+        <WeatherCards weather={this.state.weather} location={this.state.location} />
         </div>
     )
   }
+
+
+  componentDidMount() {
+      this.setState({location: localStorage.getItem('location' || '')}, () =>
+       this.locationAccepted()
+     );
+      // this.setState({location: '', weather: null});
+    }
 }
 
 const WeatherCards = (props) => {
+  let currentLocation = props.location
   let { weather } = props
-
   if(!weather) {
     return (
       <div>Please enter a location!
@@ -47,6 +60,7 @@ const WeatherCards = (props) => {
   }
   return (
     <div className='Weather-Card'>
+      <h2 className="current-location">Location: {currentLocation}</h2>
       { weather.map((card) => <div key={card.date}>
         <Weather {...card} />
       </div> )}
@@ -58,8 +72,10 @@ const Weather = (props) => {
   let {location, date, temp, weatherType} = props
   return (
     <div>
-      <article>
-        Location: {location} Date: {date} Temperature: {temp.high} Likelihood of Weather: {weatherType.scale}
+      <article className={weatherType.type}>
+        Date: {date} <br/>
+        Temperature: {temp.high} <br/>
+        Likelihood of Weather: {weatherType.scale}
       </article>
     </div>
   )
