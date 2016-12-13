@@ -1,6 +1,7 @@
 import React from 'react'
 import $ from 'jQuery'
 import {WeatherCards} from './WeatherCards'
+import {Inputs} from './controls/Inputs'
 
 export default class Main extends React.Component{
   constructor(){
@@ -16,10 +17,6 @@ export default class Main extends React.Component{
     $.get(this.props.source + (this.state.location).toLowerCase(), (apiLocationObject)=> {
       this.setState({ weather:apiLocationObject.slice(0, 7)}, localStorage.setItem('location', this.state.location))
     })
-  }
-
-  enableSubmitButton() {
-    return this.state.location !== '' ? false : true
   }
 
   getHourlyWeather(e, props) {
@@ -45,17 +42,10 @@ export default class Main extends React.Component{
   render(){
     return (
       <div>
-        <input
-              placeholder='location'
-              value = {this.state.location || ''}
-              className ='main-input'
-              onChange={(event) => this.setLocation(event)}
-              />
-        <input
-              type='submit'
-              className='submit-btn'
-              onClick= { (e) => {this.getApiLocation(e)}}
-              disabled = {this.enableSubmitButton()}
+        <Inputs
+              location={this.state.location}
+              setLocation = {this.setLocation.bind(this)}
+              getApiLocation = {this.getApiLocation.bind(this)}
               />
         <h2 className="current-location" >Location: {this.state.location}</h2>
         <WeatherCards
