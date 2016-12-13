@@ -83,15 +83,12 @@ const Weather = (props) => {
   )
 }
 
-function getHourlyWeather(e, props) {
-  // console.log(e.target);
-  // console.log(props.hourly.timeBreakDown);
-
-  { props.hourly.timeBreakDown.map((hour) => <div>
-    <
-  </div> )}
-
-
-}
+// function getHourlyWeather(e, props) {
+//   console.log(props.hourly.timeBreakDown);
+//
+//   { props.hourly.timeBreakDown.map((hour) => <div>
+//     <
+//   </div> )}
+// }
 
 ReactDOM.render(<Main source='http://weatherly-api.herokuapp.com/api/weather/'/>, document.getElementById('application'))
