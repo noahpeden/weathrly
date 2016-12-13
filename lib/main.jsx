@@ -50,11 +50,13 @@ export default class Main extends React.Component{
       <div>
     <input placeholder='location'
            value = {this.state.location}
+           className ='main-input'
            onChange={(event) =>
              {this.setState({location: event.target.value})}
            }
            />
     <input type='submit'
+            className='submit-btn'
             onClick= { (e) => {this.locationAccepted(e)}}
             disabled = {this.enableSubmitButton()}
           />
@@ -70,6 +72,7 @@ export default class Main extends React.Component{
    );
   }
 }
+
 // END OF MAIN
 
 // const WeatherCards = (props) => {

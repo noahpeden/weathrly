@@ -1,3 +1,17 @@
+$mainborder: 1px solid blue;
+
+
+body {
+  text-align: center;
+  background-image: url('/images/background.png')
+}
+h1, h2 {
+  color: white;
+  font-size: 30px;
+  font-family: monospace;
+  text-align: center;
+}
+
 ul {
   float: left;
 }
@@ -14,8 +28,8 @@ li {
 }
 
 .windy {
-  background-color: green;
-  background-image: url('/images/windy.png');
+  background-color: grey;
+  background-image: url('/images/windy2.png');
 }
 
 .thunder {
@@ -24,13 +38,19 @@ li {
 }
 
 .rain {
-  background-color: yellow;
+  background-color: lightgrey;
   background-image: url('/images/rainy.png')
 }
 
 .cloudy {
-  background-color: pink;
+  background-color: blue;
+  color: white;
   background-image: url('/images/cloudy.png')
+}
+
+.foggy {
+  background-color: rgb(204, 219, 239)  ;
+  background-image: url('/images/foggy.png')
 }
 
 .current-location {
@@ -43,9 +63,12 @@ li {
   margin: $margin;
 }
 
-.sunny, .snow, .windy, .thunder, .rain, .cloudy {
+.sunny, .snow, .windy, .thunder, .rain, .cloudy, .foggy {
+  font-family: monospace;
+  font-size: 13px;
+  border: $mainborder;
   @include img(160px, 10px)
   float: left;
   background-repeat: no-repeat;
-  padding-top: 55px;
+  padding-top: 60px;
 }
