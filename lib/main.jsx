@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import $ from 'jQuery'
-// import WeatherCards from 'WeatherCards.jsx'
-// var $ = require('jQuery')
+import WeatherCards from './WeatherCards'
+// import Weather from './Weather'
 
 class Main extends React.Component{
   constructor(){
@@ -71,44 +71,44 @@ class Main extends React.Component{
    );
   }
 }
-//END OF MAIN
+// END OF MAIN
 
-const WeatherCards = (props) => {
-  let currentLocation = props.location
-  let { weather } = props
-  if(!weather || !weather.length) {
-    return (
-      <div>Please enter a supported location!
-      </div>
-    )
-  }
-  return (
-    <div className='Weather-Card'>
-      <h2 className="current-location">Location: {currentLocation}</h2>
-      { weather.map((card) => <div key={card.date}>
-        <Weather getHourlyWeather={props.getHourlyWeather} {...card} />
-      </div> )}
-    </div>
-  )
-}
-
-const Weather = (props) => {
-  let {location, date, temp, weatherType, getHourlyWeather} = props
-  return (
-    <div>
-      <article className={weatherType.type}>
-        Date: {date} <br/>
-        Temperature High: {temp.high} <br/>
-        Temperature Low: {temp.low} <br/>
-      Likelihood: {Math.round(weatherType.chance*100) + "%"} <br/>
-        Scale: {weatherType.scale} <br/>
-
-        <button onClick={ (e) => {
-          getHourlyWeather(e, props)}
-        }>Hourly</button>
-      </article>
-    </div>
-  )
-}
+// const WeatherCards = (props) => {
+//   let currentLocation = props.location
+//   let { weather } = props
+//   if(!weather || !weather.length) {
+//     return (
+//       <div>Please enter a supported location!
+//       </div>
+//     )
+//   }
+//   return (
+//     <div className='Weather-Card'>
+//       <h2 className="current-location">Location: {currentLocation}</h2>
+//       { weather.map((card) => <div key={card.date}>
+//         <Weather getHourlyWeather={props.getHourlyWeather} {...card} />
+//       </div> )}
+//     </div>
+//   )
+// }
+//
+// const Weather = (props) => {
+//   let {location, date, temp, weatherType, getHourlyWeather} = props
+//   return (
+//     <div>
+//       <article className={weatherType.type}>
+//         Date: {date} <br/>
+//         Temperature High: {temp.high} <br/>
+//         Temperature Low: {temp.low} <br/>
+//       Likelihood: {Math.round(weatherType.chance*100) + "%"} <br/>
+//         Scale: {weatherType.scale} <br/>
+//
+//         <button onClick={ (e) => {
+//           getHourlyWeather(e, props)}
+//         }>Hourly</button>
+//       </article>
+//     </div>
+//   )
+// }
 
 ReactDOM.render(<Main source='http://weatherly-api.herokuapp.com/api/weather/'/>, document.getElementById('application'))
