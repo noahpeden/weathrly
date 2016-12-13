@@ -1,5 +1,4 @@
 import React from 'react'
-// import Main from 'Main'
 
 export const Weather = (props) => {
   let {location, date, temp, weatherType, scale, getHourlyWeather} = props;
