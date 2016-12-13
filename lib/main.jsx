@@ -1,10 +1,9 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import $ from 'jQuery'
-import WeatherCards from './WeatherCards'
+import {WeatherCards} from './WeatherCards'
 // import Weather from './Weather'
 
-class Main extends React.Component{
+export default class Main extends React.Component{
   constructor(){
     super()
     this.state = {
@@ -110,5 +109,3 @@ class Main extends React.Component{
 //     </div>
 //   )
 // }
-
-ReactDOM.render(<Main source='http://weatherly-api.herokuapp.com/api/weather/'/>, document.getElementById('application'))
