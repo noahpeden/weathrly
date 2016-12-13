@@ -1,7 +1,7 @@
 import React from 'react'
-import Weather from './Weather'
+import {Weather} from './Weather'
 
-const WeatherCards = (props) => {
+export const WeatherCards = (props) => {
   let currentLocation = props.location
   let { weather } = props
   if(!weather || !weather.length) {
@@ -20,4 +20,4 @@ const WeatherCards = (props) => {
   )
 }
 
-module.exports = WeatherCards;
+// module.exports = WeatherCards;
