@@ -1,8 +1,9 @@
-body {
-  text-align: center;
-  background-image: url('/images/sunny.png')
+ul {
+  float: left;
 }
-
+li {
+  list-style: none;
+}
 .sunny {
   background-color: lightblue;
   background-image: url('/images/sunny.png');
@@ -45,4 +46,6 @@ body {
 .sunny, .snow, .windy, .thunder, .rain, .cloudy {
   @include img(160px, 10px)
   float: left;
+  background-repeat: no-repeat;
+  padding-top: 55px;
 }
