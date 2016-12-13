@@ -100,7 +100,7 @@ const Weather = (props) => {
         Date: {date} <br/>
         Temperature High: {temp.high} <br/>
         Temperature Low: {temp.low} <br/>
-        Likelihood: {weatherType.chance*100 + "%"} <br/>
+      Likelihood: {Math.round(weatherType.chance*100) + "%"} <br/>
         Scale: {weatherType.scale} <br/>
 
         <button onClick={ (e) => {
