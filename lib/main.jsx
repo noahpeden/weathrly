@@ -51,11 +51,13 @@ class Main extends React.Component{
       <div>
     <input placeholder='location'
            value = {this.state.location}
+           className ='main-input'
            onChange={(event) =>
              {this.setState({location: event.target.value})}
            }
            />
     <input type='submit'
+            className='submit-btn'
             onClick= { (e) => {this.locationAccepted(e)}}
             disabled = {this.enableSubmitButton()}
           />
@@ -83,8 +85,8 @@ const WeatherCards = (props) => {
     )
   }
   return (
-    <div className='Weather-Card'>
-      <h2 className="current-location">Location: {currentLocation}</h2>
+    <div tabIndex='0' className='Weather-Card'>
+      <h2 tabIndex='0' className="current-location">Location: {currentLocation}</h2>
       { weather.map((card) => <div key={card.date}>
         <Weather getHourlyWeather={props.getHourlyWeather} {...card} />
       </div> )}
@@ -96,7 +98,7 @@ const Weather = (props) => {
   let {location, date, temp, weatherType, getHourlyWeather} = props
   return (
     <div>
-      <article className={weatherType.type}>
+      <article tabIndex='0' className={weatherType.type}>
         Date: {date} <br/>
         Temperature High: {temp.high} <br/>
         Temperature Low: {temp.low} <br/>
