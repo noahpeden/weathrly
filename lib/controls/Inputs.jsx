@@ -1,8 +1,8 @@
 import React from 'react'
 
 export const Inputs = (props) => {
-  let {location, setLocation, getApiLocation} = props
-  return(
+  const { location, setLocation, getApiLocation } = props
+  return (
     <div>
       <input
         placeholder='location'
@@ -13,7 +13,7 @@ export const Inputs = (props) => {
       <input
         type='submit'
         className='submit-btn'
-        onClick= { (e) => {getApiLocation(e)}}
+        onClick= { (e) => { getApiLocation(e) } }
         disabled = {!location}
         />
     </div>
