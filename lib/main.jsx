@@ -1,24 +1,24 @@
-import React from 'react'
-import $ from 'jQuery'
-import { WeatherCards } from './WeatherCards'
-import { Inputs } from './controls/Inputs'
+import React from 'react';
+import $ from 'jQuery';
+import { WeatherCards } from './WeatherCards';
+import { Inputs } from './controls/Inputs';
 
 export default class Main extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       location: '',
       weather: null,
       hourlyWeather: [],
-    }
+    };
   }
 
   getApiLocation() {
     $.get(this.props.source + (this.state.location).toLowerCase(), (apiLocationObject) => {
       this.setState(
         { weather: apiLocationObject.slice(0, 7) },
-        localStorage.setItem('location', this.state.location))
-    })
+        localStorage.setItem('location', this.state.location));
+    });
   }
 
   getHourlyWeather(e, props) {
@@ -32,13 +32,13 @@ export default class Main extends React.Component {
           <li>Type of Weather: {currentHour.type}</li>
         </ul>
         )
-      )
-    })
+      );
+    });
     this.setState({ hourlyWeather: displayArray });
   }
 
   setLocation(event) {
-    this.setState({ location: event.target.value })
+    this.setState({ location: event.target.value });
   }
 
   render() {
@@ -57,7 +57,7 @@ export default class Main extends React.Component {
               />
         <section>{this.state.hourlyWeather}</section>
       </div>
-    )
+    );
   }
 
   componentDidMount() {

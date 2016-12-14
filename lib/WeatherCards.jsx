@@ -1,12 +1,12 @@
-import React from 'react'
-import { Weather } from './Weather'
+import React from 'react';
+import { Weather } from './Weather';
 
 export const WeatherCards = (props) => {
-  let { weather } = props
+  let { weather } = props;
   if (!weather) {
     return (
       <div>Please enter a supported location!</div>
-    )
+    );
   }
   return (
     <div className='Weather-Card'>
@@ -14,5 +14,5 @@ export const WeatherCards = (props) => {
         <Weather getHourlyWeather={props.getHourlyWeather} {...card} />
       </div>)}
     </div>
-  )
-}
+  );
+};
