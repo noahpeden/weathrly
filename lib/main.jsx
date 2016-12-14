@@ -13,6 +13,8 @@ export default class Main extends React.Component {
       usersInput: '',
       weather: null,
       hourlyWeather: [],
+      hourlyArray: [],
+      shouldShowHourlyFor: '',
     };
   }
 
@@ -29,19 +31,13 @@ export default class Main extends React.Component {
   }
 
   getHourlyWeather(e, props) {
-    const hourlyArray = props.hourly.timeBreakDown;
+    const hourlyBreakdown = props.hourly.timeBreakDown;
     const displayArray = [];
-    hourlyArray.map((e, index) => {
-      const currentHour = e[`hour${index + 1}`];
-      return (
-        displayArray.push(<ul key={index}>
-          <li>Temperature: {currentHour.temp}</li>
-          <li>Type of Weather: {currentHour.type}</li>
-        </ul>
-        )
-      );
+    hourlyBreakdown.map((breakdown, index) => {
+      const currentHour = breakdown[`hour${index + 1}`];
+      displayArray.push(currentHour);
     });
-    this.setState({ hourlyWeather: displayArray });
+    this.setState({ hourlyArray: displayArray, shouldShowHourlyFor: props.date });
   }
 
   setLocation(event) {
@@ -60,6 +56,8 @@ export default class Main extends React.Component {
         <h2 className="current-location" >Location: {this.state.location}</h2>
         <WeatherCards
               getHourlyWeather={this.getHourlyWeather.bind(this)}
+              hourlyArray={this.state.hourlyArray}
+              shouldShowHourlyFor={this.state.shouldShowHourlyFor}
               weather={this.state.weather}
               location={this.state.location}
               />
