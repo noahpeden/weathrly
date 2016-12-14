@@ -1,10 +1,10 @@
 import React from 'react'
 import $ from 'jQuery'
-import {WeatherCards} from './WeatherCards'
-import {Inputs} from './controls/Inputs'
+import { WeatherCards } from './WeatherCards'
+import { Inputs } from './controls/Inputs'
 
-export default class Main extends React.Component{
-  constructor(){
+export default class Main extends React.Component {
+  constructor() {
     super()
     this.state = {
       location: '',
@@ -13,18 +13,20 @@ export default class Main extends React.Component{
     }
   }
 
-  getApiLocation(e){
-    $.get(this.props.source + (this.state.location).toLowerCase(), (apiLocationObject)=> {
-      this.setState({ weather:apiLocationObject.slice(0, 7)}, localStorage.setItem('location', this.state.location))
+  getApiLocation() {
+    $.get(this.props.source + (this.state.location).toLowerCase(), (apiLocationObject) => {
+      this.setState(
+        { weather: apiLocationObject.slice(0, 7) },
+        localStorage.setItem('location', this.state.location))
     })
   }
 
   getHourlyWeather(e, props) {
-    let hourlyArray = props.hourly.timeBreakDown;
-    let displayArray = [];
+    const hourlyArray = props.hourly.timeBreakDown;
+    const displayArray = [];
     hourlyArray.map((e, index) => {
-      let currentHour = e[`hour${index+1}`];
-      return(
+      const currentHour = e[`hour${index + 1}`];
+      return (
         displayArray.push(<ul key={index}>
           <li>Temperature: {currentHour.temp}</li>
           <li>Type of Weather: {currentHour.type}</li>
@@ -32,14 +34,14 @@ export default class Main extends React.Component{
         )
       )
     })
-    this.setState({hourlyWeather: displayArray});
+    this.setState({ hourlyWeather: displayArray });
   }
 
-  setLocation(event){
-    {this.setState({location: event.target.value})}
+  setLocation(event) {
+    this.setState({ location: event.target.value })
   }
 
-  render(){
+  render() {
     return (
       <div>
         <Inputs
@@ -59,7 +61,7 @@ export default class Main extends React.Component{
   }
 
   componentDidMount() {
-    this.setState({location: localStorage.getItem('location' || '')}, () =>
+    this.setState({ location: localStorage.getItem('location' || '') }, () =>
      this.getApiLocation()
    );
   }
