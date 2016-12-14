@@ -31,15 +31,11 @@ export default class Main extends React.Component {
   }
 
   getHourlyWeather(e, props) {
-    const hourlyBreakdown = props.hourly.timeBreakDown;
-    const displayArray = [];
-    hourlyBreakdown.map((breakdown, index) => {
-      const currentHour = breakdown[`hour${index + 1}`];
-      displayArray.push(currentHour);
+    const displayArray = props.hourly.timeBreakDown.map((breakdown, index) => {
+      return breakdown[`hour${index + 1}`];
     });
     this.setState({ hourlyArray: displayArray, shouldShowHourlyFor: props.date });
   }
-
   setLocation(event) {
     this.setState({ usersInput: event.target.value });
   }
