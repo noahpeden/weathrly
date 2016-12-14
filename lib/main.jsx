@@ -3,6 +3,8 @@ import $ from 'jQuery';
 import { WeatherCards } from './WeatherCards';
 import { Inputs } from './controls/Inputs';
 
+const API = 'http://weatherly-api.herokuapp.com/api/weather/';
+
 export default class Main extends React.Component {
   constructor() {
     super();
@@ -15,10 +17,13 @@ export default class Main extends React.Component {
   }
 
   getApiLocation() {
-    this.state.location = this.state.usersInput;
-    $.get(this.props.source + (this.state.location).toLowerCase(), (apiLocationObject) => {
-      this.setState(
-        { weather: apiLocationObject.slice(0, 7), usersInput: '' },
+    $.get(API + (this.state.usersInput).toLowerCase(), (apiLocationObject) => {
+      const newState = {
+        weather: apiLocationObject.slice(0, 7),
+        location: this.state.usersInput,
+        usersInput: '',
+      };
+      this.setState(newState,
         localStorage.setItem('location', this.state.location));
     });
   }
