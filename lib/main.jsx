@@ -8,15 +8,17 @@ export default class Main extends React.Component {
     super();
     this.state = {
       location: '',
+      usersInput: '',
       weather: null,
       hourlyWeather: [],
     };
   }
 
   getApiLocation() {
+    this.state.location = this.state.usersInput;
     $.get(this.props.source + (this.state.location).toLowerCase(), (apiLocationObject) => {
       this.setState(
-        { weather: apiLocationObject.slice(0, 7) },
+        { weather: apiLocationObject.slice(0, 7), usersInput: '' },
         localStorage.setItem('location', this.state.location));
     });
   }
@@ -38,7 +40,7 @@ export default class Main extends React.Component {
   }
 
   setLocation(event) {
-    this.setState({ location: event.target.value });
+    this.setState({ usersInput: event.target.value });
   }
 
   render() {
@@ -46,6 +48,7 @@ export default class Main extends React.Component {
       <div>
         <Inputs
               location={this.state.location}
+              usersInput={this.state.usersInput}
               setLocation = {this.setLocation.bind(this)}
               getApiLocation = {this.getApiLocation.bind(this)}
               />

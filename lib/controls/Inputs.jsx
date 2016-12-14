@@ -1,12 +1,12 @@
 import React from 'react'
 
 export const Inputs = (props) => {
-  const { location, setLocation, getApiLocation } = props
+  const { location, usersInput, setLocation, getApiLocation } = props
   return (
     <div>
       <input
         placeholder='location'
-        value = {location}
+        value = {usersInput}
         className ='main-input'
         onChange={(event) => setLocation(event)}
         />
@@ -14,7 +14,7 @@ export const Inputs = (props) => {
         type='submit'
         className='submit-btn'
         onClick= { (e) => { getApiLocation(e) } }
-        disabled = {!location}
+        disabled = {!usersInput}
         />
     </div>
   )
